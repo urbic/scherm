@@ -1,0 +1,142 @@
+=pod
+
+=head1 NAME
+
+Scherm - terminal screen and keyboard handling
+
+=head1 SYNOPSIS
+
+	use Scherm;
+
+	my $t=Scherm->new;
+
+=head1 DESCRIPTION
+
+TODO
+
+=head2 Screen handling
+
+TODO
+
+=head2 Keyboard handling
+
+TODO
+
+=head1 METHODS
+
+=over
+
+=item Scherm->new
+
+Constructor. Creates new Scherm object.
+
+=item I<$self>->refresh
+
+Flushes output buffer.
+
+=item I<$self>->clearScreen
+
+Clears screen.
+
+=item I<$self>->getScreenSize
+
+Returns an array with screen dimensions. The first element is screen height and
+the second is screen width, measured in character cells.
+
+First procedure tries to obtain dimensions via TIOCGWINSZ ioctl call. If this
+fails, it tries C<LINES> and C<COLUMNS> environment variables. As last resort,
+it tries C<lines> and C<cols> terminal capabilities.
+
+=back
+
+=head2 Cursor movement and location
+
+=over
+
+=item I<$self>->moveCursor(I<$row>, I<$column>)
+
+Moves cursor to given position on the screen, row number equals to I<$row>,
+column number equals to I<$column>. Upper left corner of the screen has
+coordinates (0, 0).
+
+=item I<$self>->homeCursor
+
+Moves cursor to home location.
+
+=item I<$self>->shiftCursor(I<$direction>, I<$n>)
+
+Moves cursor at given direction I<$direction> for I<$n> times. the following
+constants may be used for I<$direction>: DIR_RIGHT, DIR_UP, DIR_LEFT, DIR_DOWN.
+
+=item I<$self>->locateCursor
+
+Returns current cursor location as array of coordinates.
+
+=back
+
+=head2 Cursor visibility
+
+=over
+
+=item I<$self>->setCursor(I<$visibility>)
+
+Changes cursor visibility to I<$visibility>. The following constants may be
+used for visibility: CURSOR_INVISIBLE, CURSOR_NORMAL, CURSOR_VERY_VISIBLE.
+
+=back
+
+=head2 Screen output
+
+=over
+
+=item I<$self>->writeString(I<$string>)
+
+Outputs string I<$string> at current cursor position. Cursor moves to position
+after string being outputted.
+
+=back
+
+=head1 EXPORT
+
+None by default.
+
+=head1 ENVIRONMENT
+
+=over
+
+=item TERM
+
+Terminal name.
+
+=item TERMINFO
+
+Terminfo database location.
+
+=item LINES
+
+Screen height.
+
+=item COLUMNS
+
+Screen width.
+
+=back
+
+=head1 SEE ALSO
+
+L<term(5)>, L<terminfo(5)>, L<Scherm::Terminfo(3pm)>,
+L<Scherm::Constants(3pm)>, L<Scherm::IO(3pm)>, L<Scherm::KeyMap(3pm)>.
+
+=head1 AUTHOR
+
+A. N. Shvetz, E<lt>tz@sectorb.msk.ruE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2013 by A. N. Shvetz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.16.2 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut
